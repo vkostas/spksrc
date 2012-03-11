@@ -14,14 +14,37 @@ PID_FILE="${INSTALL_DIR}/var/transmission.pid"
 
 start_daemon ()
 {
+    # Launch the service in the background.
     su - ${RUNAS} -c "${TRANSMISSION} -g ${INSTALL_DIR}/var/ -x ${PID_FILE}"
+    # Wait until the service  is ready (race condition here).
+    counter=5
+    while [ $counter -gt 0 ]
+    do
+        daemon_status && break
+        let counter=counter-1
+        sleep 1
+    done
 }
 
 stop_daemon ()
 {
+    # Kill the servive.
     kill `cat ${PID_FILE}`
-    wait_for_status 1 20
-    rm -f ${PID_FILE}
+
+    # Wait until transmission is really dead (may take some time).
+    counter=20
+    while [ $counter -gt 0 ] 
+    do
+        daemon_status || break
+        let counter=counter-1
+        sleep 1
+    done
+}
+
+reload_daemon ()
+{
+    # Reload the config file.
+    kill -s HUP `cat $TRPID`
 }
 
 daemon_status ()
@@ -32,21 +55,16 @@ daemon_status ()
     return 1
 }
 
-wait_for_status()
+run_in_console ()
 {
-    counter=$2
-    while [ ${counter} -gt 0 ]; do
-        daemon_status
-        [ $? -eq $1 ] && break
-        let counter=counter-1
-        sleep 1
-    done
+    # Run the service in the foreground, with the mesages in the current console.
+    su - $RUNAS -c "$TREXE -g $TRVAR -f"
 }
-
 
 case $1 in
     start)
-        if daemon_status; then
+        if daemon_status
+        then
             echo ${DNAME} is already running
             exit 0
         else
@@ -56,7 +74,8 @@ case $1 in
         fi
         ;;
     stop)
-        if daemon_status; then
+        if daemon_status
+	then
             echo Stopping ${DNAME} ...
             stop_daemon
             exit $?
@@ -65,14 +84,34 @@ case $1 in
             exit 0
         fi
         ;;
+    restart)
+        stop_daemon
+        start_daemon
+        exit $?
+        ;;
+    reload)
+        if daemon_status
+        then
+           reload_daemon
+        fi
+        exit $?
+        ;;
     status)
-        if daemon_status; then
+        if daemon_status
+	then
             echo ${DNAME} is running
             exit 0
         else
             echo ${DNAME} is not running
             exit 1
         fi
+        ;;
+    log)
+        echo $LOGFILE
+        exit 0
+        ;;
+    console)
+        run_in_console
         ;;
     *)
         exit 1
