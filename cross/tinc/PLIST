@@ -1,0 +1,3 @@
+bin:sbin/tincd
+shr:share/info/dir
+shr:share/info/tinc.info
