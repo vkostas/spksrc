@@ -1,6 +1,6 @@
 PKG_NAME = util-linux
-PKG_SHORT_VERS = 2.26
-PKG_VERS = $(PKG_SHORT_VERS).2
+PKG_SHORT_VERS = 2.29
+PKG_VERS = $(PKG_SHORT_VERS)-rc2
 PKG_EXT = tar.xz
 PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://www.kernel.org/pub/linux/utils/util-linux/v$(PKG_SHORT_VERS)
@@ -15,6 +15,7 @@ LICENSE  = GPL
 GNU_CONFIGURE = 1
 CONFIGURE_ARGS  = --without-ncurses --without-python
 CONFIGURE_ARGS += --disable-all-programs --enable-schedutils --enable-libuuid
+CONFIGURE_ARGS += --enable-libblkid --enable-libmount
 
 include ../../mk/spksrc.cross-cc.mk
 

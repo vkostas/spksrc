@@ -1,18 +1,148 @@
 PKG_NAME = mpd
-PKG_VERS = 0.16.7
-PKG_EXT = tar.bz2
-PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
-PKG_DIST_SITE = http://downloads.sourceforge.net/project/musicpd/$(PKG_NAME)/$(PKG_VERS)
+PKG_VERS_SHORT = 0.19
+PKG_VERS = $(PKG_VERS_SHORT).19
+PKG_EXT = tar.xz
+
+ifneq ($(findstring 6.,$(TCVERSION)),)
+UNSUPPORTED_ARCHS += ppc853x
+else ifneq ($(findstring 5.,$(TCVERSION)),)
+ifeq ($(findstring $(ARCH),ppc853x qoriq),$(ARCH))
+PKG_VERS_SHORT = 0.17
+PKG_VERS = $(PKG_VERS_SHORT).6
+else ifeq ($(findstring $(ARCH),88f6281 alpine armada370 armada375 armadaxp comcerto2k evansport),$(ARCH))
+PKG_VERS_SHORT = 0.19
+PKG_VERS = $(PKG_VERS_SHORT).17
+endif
+endif
+
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
+PKG_DIST_NAME = $(PKG_DIR).$(PKG_EXT)
+PKG_DIST_SITE = http://www.musicpd.org/download/$(PKG_NAME)/$(PKG_VERS_SHORT)
 
-DEPENDS  = cross/glib cross/alsa-lib cross/libmad cross/libogg cross/flac
-DEPENDS += cross/audiofile cross/libid3tag cross/libvorbis cross/lame
+DEPENDS  :=
+# 1. Dependencies
+DEPENDS  += cross/ncursesw     cross/libtool       cross/icu               cross/glib
+DEPENDS  += cross/boost
 
-HOMEPAGE = http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki
+# 2. Optional output dependencies
+DEPENDS += cross/libao         cross/alsa-lib      cross/pulseaudio        cross/jack
+DEPENDS += cross/libvorbis     cross/lame          cross/icecast           cross/libshout
+DEPENDS += cross/openal        cross/alsa-oss      alsa-utils
+
+# 3. Optional Input Dependencies
+DEPENDS += cross/libid3tag     cross/libmad        cross/mpg123            cross/libogg
+DEPENDS += cross/opus          cross/flac          cross/audiofile         cross/faad2
+DEPENDS += cross/libmikmod
+ifeq ($(findstring $(ARCH),ppc853x qoriq),$(ARCH))
+else
+DEPENDS += cross/ffmpeg
+endif
+DEPENDS += cross/libsndfile    cross/libwavpack    cross/adplug            cross/libmpcdec
+DEPENDS += cross/sidplay2-libs cross/libsidplayfp  cross/fluidsynth
+#EPENDS += cross/wildmidi
+
+# 4. Optional Miscellaneous Dependencies
+DEPENDS += cross/avahi         cross/libsamplerate cross/curl              cross/libmms
+DEPENDS += cross/sqlite        cross/libnfs        cross/libcdio           cross/soxr
+DEPENDS += cross/nfs-utils     cross/libcdio-paranoia
+
+# 5. Optional Miscellaneous Dependencies (from make)
+DEPENDS += cross/tcp_wrappers  cross/expat         cross/bzip2             cross/zziplib
+DEPENDS += cross/libmpdclient  cross/libmodplug    cross/twolame           cross/libupnp
+DEPENDS += cross/roaraudio
+
+HOMEPAGE = http://www.musicpd.org/
 COMMENT  = Flexible, powerful, server-side application for playing music
 LICENSE  =
 
 GNU_CONFIGURE = 1
+CONFIGURE_ARGS  =
+CONFIGURE_ARGS += --enable-eventfd#                #use the function "eventfd" (default: auto)
+CONFIGURE_ARGS += --enable-signalfd#               #use the function "signalfd" (default: auto)
+CONFIGURE_ARGS += --enable-poll#                   #use the function "poll" (default: auto)
+CONFIGURE_ARGS += --enable-epoll#                  #use the function "epoll" (default: auto)
+CONFIGURE_ARGS += --enable-database#               #enable support for the music database
+CONFIGURE_ARGS += --enable-libmpdclient#           #enable support for the MPD client
+CONFIGURE_ARGS += --enable-expat#                  #enable the expat XML parser
+CONFIGURE_ARGS += --enable-upnp#                   #enable UPnP client support (default: auto)
+CONFIGURE_ARGS += --enable-adplug#                 #enable the AdPlug decoder plugin (default: auto)
+CONFIGURE_ARGS += --enable-alsa#                   #enable ALSA support
+CONFIGURE_ARGS += --enable-roar#                   #enable support for RoarAudio
+CONFIGURE_ARGS += --enable-ao#                     #enable support for libao
+CONFIGURE_ARGS += --enable-audiofile#              #enable audiofile support (WAV and others)
+CONFIGURE_ARGS += --enable-zlib#                   #enable zlib support (default: auto)
+CONFIGURE_ARGS += --enable-bzip2#                  #enable bzip2 archive support (default: auto)
+CONFIGURE_ARGS += --disable-cdio-paranoia#■■■■■■■■■#enable support for audio CD support■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-curl#                   #enable support for libcurl HTTP streaming (default: auto)
+CONFIGURE_ARGS += --disable-smbclient#■■■■■■■■■■■■■#enable support for libsmbclient (default: auto)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-nfs#                    #enable support for libnfs (default: auto)
+CONFIGURE_ARGS += --disable-documentation#■■■■■■■■■#build documentation (default: disable)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-dsd#                    #enable DSD decoder (default: enable)
+ifeq ($(findstring $(ARCH),ppc853x qoriq),$(ARCH))
+CONFIGURE_ARGS += --disable-ffmpeg#■■■■■■■■■■■■■■■■#enable FFMPEG support■■■■■■■■■■■■■■■■■■
+else
+CONFIGURE_ARGS += --enable-ffmpeg#                 #enable FFMPEG support
+endif
+CONFIGURE_ARGS += --enable-fifo#                   #disable support for writing audio to a FIFO (default: enable)
+CONFIGURE_ARGS += --enable-flac#                   #enable FLAC decoder
+CONFIGURE_ARGS += --enable-fluidsynth#             #enable MIDI support via fluidsynth (default: auto)
+CONFIGURE_ARGS += --disable-gme#■■■■■■■■■■■■■■■■■■■#enable Blargg's game music emulator plugin■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-httpd-output#           #enables the HTTP server output
+CONFIGURE_ARGS += --enable-id3#                    #enable id3 support
+CONFIGURE_ARGS += --enable-inotify#                #disable support Inotify automatic database update (default: enabled)
+CONFIGURE_ARGS += --enable-ipv6#                   #disable IPv6 support (default: enable)
+CONFIGURE_ARGS += --enable-iso9660#                #enable iso9660 archive support (default: disabled)
+CONFIGURE_ARGS += --enable-jack#                   #enable jack support
+CONFIGURE_ARGS += --enable-largefile#              #omit support for large files
+CONFIGURE_ARGS += --disable-soundcloud#■■■■■■■■■■■■#enable support for soundcloud.com■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-lame-encoder#           #enable the LAME mp3 encoder
+CONFIGURE_ARGS += --enable-libwrap#                #use libwrap
+CONFIGURE_ARGS += --enable-lsr#                    #enable libsamplerate support
+CONFIGURE_ARGS += --enable-soxr#                   #enable the libsoxr resampler
+CONFIGURE_ARGS += --enable-mad#                    #enable libmad mp3 decoder plugin
+CONFIGURE_ARGS += --enable-mikmod#                 #enable the mikmod decoder (default: disable)
+CONFIGURE_ARGS += --enable-mms#                    #enable the MMS protocol with libmms
+CONFIGURE_ARGS += --enable-modplug#                #enable modplug decoder plugin 
+CONFIGURE_ARGS += --enable-mpc#                    #disable musepack (MPC) support (default: auto)
+CONFIGURE_ARGS += --enable-mpg123#                 #enable libmpg123 decoder plugin
+CONFIGURE_ARGS += --enable-openal#                 #enable OpenAL support (default: auto)
+CONFIGURE_ARGS += --enable-opus#                   #enable Opus codec support (default: auto)
+CONFIGURE_ARGS += --disable-oss#■■■■■■■■■■■■■■■■■■■#disable OSS support (default: enable)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --disable-osx#■■■■■■■■■■■■■■■■■■■#enable the OS X output plugin - unsupported! (default: disable)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --disable-pipe-output#■■■■■■■■■■■#enable support for writing audio to a pipe (default: disable)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-pulse#                  #enable support for the PulseAudio sound server
+CONFIGURE_ARGS += --disable-recorder-output#■■■■■■■#enables the recorder file output plugin (default: disable)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-sidplay#                #enable C64 SID support via libsidplay2
+CONFIGURE_ARGS += --disable-shine-encoder#■■■■■■■■■#enables shine encoder■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-shout#                  #enables the shoutcast streaming output
+CONFIGURE_ARGS += --enable-sndfile#                #enable sndfile support
+CONFIGURE_ARGS += --disable-solaris-output#■■■■■■■■#enables the Solaris /dev/audio output■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-sqlite#                 #enable support for the SQLite database
+CONFIGURE_ARGS += --disable-systemd-daemon#■■■■■■■■#use the systemd daemon library (default=auto)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-tcp#                    #disable support for clients connecting via TCP (default: enable)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --disable-test#■■■■■■■■■■■■■■■■■■#build the test programs (default: disabled)
+CONFIGURE_ARGS += --enable-twolame-encoder#        #enable the TwoLAME mp2 encoder
+CONFIGURE_ARGS += --enable-un#                     #disable support for clients connecting via unix domain sockets (default: enable)
+CONFIGURE_ARGS += --enable-vorbis#                 #enable Ogg Vorbis decoder
+CONFIGURE_ARGS += --enable-vorbis-encoder#         #enable the Ogg Vorbis encoder
+CONFIGURE_ARGS += --enable-wave-encoder#           #enable the PCM wave encoder
+CONFIGURE_ARGS += --enable-wavpack#                #enable WavPack support
+CONFIGURE_ARGS += --disable-werror#■■■■■■■■■■■■■■■■#treat warnings as errors (default: disabled)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --disable-wildmidi#■■■■■■■■■■■■■■#enable MIDI support via wildmidi (default: auto)■■■■■■■■■■■■■■■■■■
+CONFIGURE_ARGS += --enable-zzip#                   #enable zip archive support (default: disabled)
+CONFIGURE_ARGS += --enable-icu#                    #enable libicu for Unicode (default: enabled)
+CONFIGURE_ARGS += --enable-glib#                   #enable GLib usage (default: enabled)
+CONFIGURE_ARGS += --enable-neighbor-plugins#       #enable support for neighbor discovery (default: auto)
+CONFIGURE_ARGS += --enable-aac#                    #disable AAC support (default: enable)
+
+#CONFIGURE_ARGS += SIDPLAY_LIBS=$(STAGING_INSTALL_PREFIX)/lib/libsidutils.la
+
+INSTALL_TARGET = install_target #myInstall
 
 include ../../mk/spksrc.cross-cc.mk
 
+.PHONY: myInstall
+myInstall:
+	cp --remove-destination $(TC_PATH)../$(TC_TARGET)/sys-root/lib/libssp.so.0.0.0 $(STAGING_INSTALL_PREFIX)/lib/libssp.so.0.0.0
+	ln -sfv ./libssp.so.0.0.0 $(STAGING_INSTALL_PREFIX)/lib/libssp.so.0
+	ln -sfv ./libssp.so.0     $(STAGING_INSTALL_PREFIX)/lib/libssp.so

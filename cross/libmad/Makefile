@@ -12,6 +12,9 @@ COMMENT  = High-quality fixed-point MPEG audio decoder with 24-bit output
 LICENSE  = GPL
 
 GNU_CONFIGURE = 1
+ifeq ($(findstring $(ARCH),alpine),$(ARCH))
+  CONFIGURE_ARGS += --enable-fpm=default
+endif
 
 include ../../mk/spksrc.cross-cc.mk
 
