@@ -1,5 +1,5 @@
 PKG_NAME = boost
-PKG_VERS = 1.59.0
+PKG_VERS = 1.60.0
 PKG_EXT = tar.bz2
 PKG_DIR = $(PKG_NAME)_$(subst .,_,$(PKG_VERS))
 PKG_DIST_NAME = $(PKG_DIR).$(PKG_EXT)
@@ -15,6 +15,9 @@ CONFIGURE_TARGET = myConfigure
 COMPILE_TARGET = myCompile
 INSTALL_TARGET = myInstall
 
+ifeq ($(BOOST_LIBRARIES),)
+BOOST_LIBRARIES_WITHOUT ?= atomic,chrono,container,context,coroutine,coroutine2,date_time,exception,filesystem,graph,graph_parallel,iostreams,locale,log,math,mpi,program_options,python,random,regex,serialization,signals,system,test,thread,timer,type_erasure,wave
+endif
 # Build all if not told otherwise (will most likely fail)
 BOOST_LIBRARIES ?= all
 
@@ -26,6 +29,7 @@ space:= $(empty) $(empty)
 GNU_CONFIGURE = 1
 CONFIGURE_ARGS  = --with-toolset=gcc --with-libraries=$(subst $(space),$(comma),$(sort $(BOOST_LIBRARIES))) --prefix=$(STAGING_INSTALL_PREFIX)
 CONFIGURE_ARGS += --with-python=$(WORK_DIR)/../../../native/python/work-native/install/usr/local/bin/python
+CONFIGURE_ARGS += --without-libraries=$(BOOST_LIBRARIES_WITHOUT)
 
 ADDRESS_MODEL = 32
 ifneq ($(findstring $(ARCH), avoton braswell bromolow cedarview x64 x86),)

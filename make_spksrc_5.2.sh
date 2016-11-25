@@ -1,0 +1,17 @@
+make arch-88f6281-5.2
+make arch-alpine-5.2
+make arch-armada370-5.2
+make arch-armada375-5.2
+make arch-armada38x-5.2
+make arch-armadaxp-5.2
+make arch-avoton-5.2
+make arch-braswell-5.2
+make arch-bromolow-5.2
+make arch-cedarview-5.2
+make arch-comcerto2k-5.2
+make arch-evansport-5.2
+make arch-monaco-5.2
+make arch-ppc853x-5.2
+make arch-qoriq-5.2
+make arch-x64-5.2
+make arch-x86-5.2

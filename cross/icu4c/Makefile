@@ -1,0 +1,39 @@
+PKG_NAME_MAIN = icu
+PKG_NAME = $(PKG_NAME_MAIN)4c
+PKG_VERS = 58.1
+PKG_EXT = tgz
+PKG_DIST_NAME = $(PKG_NAME)-$(subst .,_,$(PKG_VERS))-src.$(PKG_EXT)
+PKG_DIST_SITE = http://download.icu-project.org/files/$(PKG_NAME)/$(PKG_VERS)
+PKG_DIR = $(PKG_NAME_MAIN)
+
+DEPENDS = 
+
+HOMEPAGE = http://site.icu-project.org/
+COMMENT  = International Components for Unicode
+LICENSE  = 
+
+CONFIGURE_ARGS  = --with-cross-build=$(WORK_DIR)/$(PKG_DIR)_build_a  --prefix=$(INSTALL_PREFIX)
+CONFIGURE_ARGS += --disable-tools --disable-tests --disable-samples --enable-shared --with-data-packaging=library
+ADDITIONAL_CXXFLAGS = --std=c++0x
+ADDITIONAL_CFLAGS = -fPIC
+CONFIGURE_TARGET = myConfigure
+COMPILE_TARGET = none
+INSTALL_TARGET = myInstall
+
+GNU_CONFIGURE = 1
+
+include ../../mk/spksrc.cross-cc.mk
+
+.PHONY: myConfigure
+myConfigure:
+	mkdir -p $(WORK_DIR)/$(PKG_DIR)_build_a
+	cd $(WORK_DIR)/$(PKG_DIR)_build_a && CPP= CC= CXX= CPPFLAGS= CFLAGS= CXXFLAGS= LDFLAGS= MAKE= RANLIB= AR= $(WORK_DIR)/$(PKG_DIR)/source/runConfigureICU Linux/gcc
+	cd $(WORK_DIR)/$(PKG_DIR)_build_a && make
+
+.PHONY: myInstall
+myInstall:
+	mkdir -p $(WORK_DIR)/$(PKG_DIR)_build_b
+	cd $(WORK_DIR)/$(PKG_DIR)_build_b && env $(ENV) $(WORK_DIR)/$(PKG_DIR)/source/configure --host=$(TC_TARGET) $(CONFIGURE_ARGS)
+	cd $(WORK_DIR)/$(PKG_DIR)_build_b && env $(ENV) make
+	cd $(WORK_DIR)/$(PKG_DIR)_build_b && env $(ENV) make install DESTDIR=$(INSTALL_DIR)
+

@@ -1,5 +1,5 @@
 PKG_NAME = dbus
-PKG_VERS = 1.6.8
+PKG_VERS = 1.11.6
 PKG_EXT = tar.gz
 PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = http://dbus.freedesktop.org/releases/dbus

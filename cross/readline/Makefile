@@ -13,6 +13,7 @@ LICENSE  = http://www.gnu.org/licenses/gpl.html
 
 GNU_CONFIGURE = 1
 CONFIGURE_ARGS = bash_cv_wcwidth_broken=no
+CONFIGURE_ARGS += SHLIB_LIBS=-lncurses --disable-static
 
 include ../../mk/spksrc.cross-cc.mk
 

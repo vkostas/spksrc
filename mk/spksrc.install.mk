@@ -72,6 +72,8 @@ install_correct_lib_files: $(INSTALL_PLIST)
 	  $(MSG) "Correcting libtool file $${la_file}" ; \
 	  perl -p -i -e 's#(?<!\Q$(INSTALL_DIR)\E/)$(INSTALL_PREFIX)#$(INSTALL_DIR)/$(INSTALL_PREFIX)#g' $(INSTALL_DIR)/$(INSTALL_PREFIX)/$${la_file} ; \
 	done
+#	         -e 's#\($(INSTALL_DIR)\)\1#\1#g' \
+#	  sed -i -e 's#\($(INSTALL_DIR)\)\1#\1#g' $(INSTALL_DIR)/$(INSTALL_PREFIX)/$${la_file} ; \
 
 ifeq ($(wildcard $(INSTALL_COOKIE)),)
 install: $(INSTALL_COOKIE)

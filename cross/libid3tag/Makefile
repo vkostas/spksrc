@@ -5,7 +5,7 @@ PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = http://downloads.sourceforge.net/project/mad/$(PKG_NAME)/$(PKG_VERS)
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 
-DEPENDS =
+DEPENDS = cross/zlib
 
 HOMEPAGE = http://www.underbit.com/products/mad/
 COMMENT  = High-quality fixed-point MPEG audio decoder with 24-bit output

@@ -1,5 +1,5 @@
 PKG_NAME = icecast
-PKG_VERS = 2.4.1
+PKG_VERS = 2.4.2
 PKG_EXT = tar.gz
 PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = http://downloads.xiph.org/releases/icecast
@@ -14,6 +14,7 @@ LICENSE  = GPLv2
 GNU_CONFIGURE = 1
 
 CONFIGURE_ARGS = --with-xslt-config=$(STAGING_INSTALL_PREFIX)/bin/xslt-config
+CONFIGURE_ARGS += --with-curl=$(STAGING_INSTALL_PREFIX)/bin --with-curl-config=$(STAGING_INSTALL_PREFIX)/lib/pkgconfig
 
 include ../../mk/spksrc.cross-cc.mk
 

@@ -1,0 +1,12 @@
+--- Output/esd/esdout.h	2001-12-03 13:38:42.000000000 +1100
++++ Output/esd/esdout.h	2005-08-07 17:59:45.000000000 +1000
+@@ -58,6 +58,7 @@ typedef struct
+ ESDConfig;
+ 
+ extern ESDConfig esd_cfg;
++extern void esdout_reset_playerid(void);
+ 
+ void esdout_init(void);
+ void esdout_about(void);
+
+

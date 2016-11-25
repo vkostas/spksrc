@@ -1,5 +1,5 @@
 PKG_NAME = alsa-utils
-PKG_VERS = 1.0.26
+PKG_VERS = 1.1.2
 PKG_EXT = tar.bz2
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 PKG_DIST_NAME = $(PKG_DIR).$(PKG_EXT)
@@ -12,18 +12,15 @@ COMMENT  = Advanced Linux Sound Architecture provides audio and MIDI functionali
 LICENSE  =
 
 GNU_CONFIGURE = 1
-CONFIGURE_ARGS = --with-curses=ncurses
-CONFIGURE_TARGET = myConfigure
+CONFIGURE_ARGS = --disable-alsaconf --disable-bat --disable-xmlto
 INSTALL_TARGET = myInstall
+PATCH_TARGET = myPatch patch
 
 include ../../mk/spksrc.cross-cc.mk
 
-.PHONY: myConfigure
-myConfigure:
-	sed -i.orig $(INSTALL_DIR)/$(INSTALL_PREFIX)/bin/ncurses5-config \
-	    -e 's#^prefix=".*"$$#prefix="$(INSTALL_DIR)/$(INSTALL_PREFIX)"#'
-	$(RUN) PATH=$(INSTALL_DIR)/$(INSTALL_PREFIX)/bin/:$(PATH) ./configure $(REAL_CONFIGURE_ARGS)
-	mv $(INSTALL_DIR)/$(INSTALL_PREFIX)/bin/ncurses5-config.orig $(INSTALL_DIR)/$(INSTALL_PREFIX)/bin/ncurses5-config
+.PHONY: myPatch
+myPatch:
+	$(RUN) sed -i -e "s:\(ncurses[w]\)*5:\16:g" configure configure.ac
 
 .PHONY: myInstall
 myInstall:
