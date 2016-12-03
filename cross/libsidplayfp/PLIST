@@ -1,0 +1,6 @@
+lnk:lib/libsidplayfp.so
+lnk:lib/libsidplayfp.so.4
+lib:lib/libsidplayfp.so.4.2.7
+lnk:lib/libstilview.so
+lnk:lib/libstilview.so.0
+lib:lib/libstilview.so.0.0.3

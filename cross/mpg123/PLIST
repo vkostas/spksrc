@@ -7,4 +7,3 @@ lnk:lib/libmpg123.so.0
 lib:lib/libmpg123.so.0.41.2
 lib:lib/mpg123/output_dummy.so
 lib:lib/mpg123/output_oss.so
-lib:lib/pkgconfig/libmpg123.pc

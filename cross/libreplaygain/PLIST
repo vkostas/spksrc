@@ -1,5 +1,3 @@
-include/replaygain/gain_analysis.h
-lib/libreplaygain.a
-lib/libreplaygain.so
-lib/libreplaygain.so.1
-lib/libreplaygain.so.1.0.0
+lnk:lib/libreplaygain.so
+lnk:lib/libreplaygain.so.1
+lib:lib/libreplaygain.so.1.0.0

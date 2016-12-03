@@ -1,0 +1,65 @@
+--- configure.orig	2016-11-27 02:50:41.197415000 +0100
++++ configure	2016-11-27 03:27:28.150099659 +0100
+@@ -93,7 +93,7 @@
+ case $0 in #((
+   *[\\/]* ) as_myself=$0 ;;
+   *) as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-for as_dir in $PATH
++for as_dir in $spksrcPATH
+ do
+   IFS=$as_save_IFS
+   test -z "$as_dir" && as_dir=.
+@@ -11508,7 +11508,7 @@
+   ;;
+   *)
+   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-for as_dir in $PATH
++for as_dir in $spksrcPATH
+ do
+   IFS=$as_save_IFS
+   test -z "$as_dir" && as_dir=.
+@@ -11795,7 +11795,7 @@
+   ;;
+   *)
+   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-for as_dir in $PATH
++for as_dir in $spksrcPATH
+ do
+   IFS=$as_save_IFS
+   test -z "$as_dir" && as_dir=.
+@@ -12116,7 +12116,7 @@
+   ;;
+   *)
+   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-for as_dir in $PATH
++for as_dir in $spksrcPATH
+ do
+   IFS=$as_save_IFS
+   test -z "$as_dir" && as_dir=.
+@@ -13683,7 +13683,7 @@
+   ;;
+   *)
+   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-for as_dir in $PATH
++for as_dir in $spksrcPATH
+ do
+   IFS=$as_save_IFS
+   test -z "$as_dir" && as_dir=.
+@@ -16621,7 +16621,7 @@
+   ;;
+   *)
+   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-for as_dir in $PATH
++for as_dir in $spksrcPATH
+ do
+   IFS=$as_save_IFS
+   test -z "$as_dir" && as_dir=.
+@@ -16667,7 +16667,7 @@
+   ;;
+   *)
+   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-for as_dir in $PATH
++for as_dir in $spksrcPATH
+ do
+   IFS=$as_save_IFS
+   test -z "$as_dir" && as_dir=.

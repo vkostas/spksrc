@@ -1,0 +1,501 @@
+[{
+    "step_title": "1. Files and directories",
+    "items": [{
+        "type": "textfield",
+        "desc": "1.1. Top directory which MPD will search to discover the available audio files and add them to the daemon's online database.",
+        "subitems": [{
+            "key": "wizard_music_directory",
+            "desc": "Music directory*",
+            "defaultValue": "/volume1/music/",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "/volume1/music/",
+                "regex": {
+                    "expr": "/^\\\/volume[0-9]+\\\/.+\\\//i",
+                    "errorText": "Path should begin with /volume?/ where ? is the number of the volume and end with /"
+                }
+            }
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_playlist_directory_enable",
+            "desc": "1.2. Internal playlist directory. The purpose of this directory is storage for playlists created by MPD. The server will use playlist files not created by the server but only if they are in the MPD format",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": ".",
+        "subitems": [{
+            "key": "wizard_playlist_directory",
+            "desc": "Playlists directory",
+            "defaultValue": "/volume1/mpd/playlists/",
+            "validator": {
+                "allowBlank": true,
+                "emptyText": "/volume1/mpd/playlists/",
+                "regex": {
+                    "expr": "/^\\\/volume[0-9]+\\\/.+\\\//i",
+                    "errorText": "Path should begin with /volume?/ where ? is the number of the volume and end with /"
+                }
+            }
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "1.3. Location of the MPD database. This file is used to load the database at server start up and store the database while the server is not up.",
+        "subitems": [{
+            "key": "wizard_db_file",
+            "desc": "Database file*",
+            "defaultValue": "/volume1/mpd/mpd.tag_cache",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "/volume1/mpd/mpd.tag_cache",
+                "regex": {
+                    "expr": "/^\\\/volume[0-9]+\\\/.+[^\\\/]/i",
+                    "errorText": "Filename should begin with /volume?/ where ? is the number of the volume and must NOT end with /"
+                }
+            }
+        }]
+    }]
+}, {
+    "step_title": "1. File and directories (page 2)",
+    "items": [{
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_log_enable",
+            "desc": "1.4. Log file for the daemon. The special value \"syslog\" makes MPD use the local syslog daemon",
+            "defaultValue": false
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_log_file",
+            "desc": "Log file",
+            "defaultValue": "/volume1/mpd/mpd.log",
+            "validator": {
+                "allowBlank": true,
+                "emptyText": "/volume1/mpd/mpd.log",
+                "regex": {
+                    "expr": "/^\\\/volume[0-9]+\\\/.+[^\\\/]/",
+                    "errorText": "Filename should begin with /volume?/ where ? is the number of the volume and must NOT end with /"
+                }
+            }
+        }]
+    }, {
+        "type": "singleselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_log_level_default",
+            "desc": "Log Level: Default",
+            "defaultValue": false
+        }, {
+            "key": "wizard_log_level_secure",
+            "desc": "Log Level: Secure",
+            "defaultValue": false
+        }, {
+            "key": "wizard_log_level_verbose",
+            "desc": "Log Level: Verbose. Careful!!!! Log file may increase repidly.",
+            "defaultValue": false
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_pid_file_enable",
+            "desc": "1.5. Location of the file which stores the process ID for use of mpd --kill and some init scripts.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_pid_file",
+            "desc": "PID file",
+            "defaultValue": "/volume1/mpd/mpd.pid",
+            "validator": {
+                "allowBlank": true,
+                "emptyText": "/volume1/mpd/mpd.pid",
+                "minLength": 8
+            }
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_state_file_enable",
+            "desc": "1.6. Location of the file which contains information about most variables to get MPD back into the same general shape it was in before it was brought down.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_state_file",
+            "desc": "State file",
+            "defaultValue": "/volume1/mpd/mpd.state",
+            "validator": {
+                "allowBlank": true,
+                "emptyText": "/volume1/mpd/mpd.state",
+                "minLength": 8
+            }
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_sticker_file_enable",
+            "desc": "1.7. The location of the sticker database, which manages dynamic information attached to songs. Leave empty to disable.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_sticker_file",
+            "desc": "Sticker file",
+            "defaultValue": "/volume1/mpd/mpd.sticker.sql",
+            "validator": {
+                "allowBlank": true,
+                "emptyText": "/volume1/mpd/mpd.sticker.sql",
+                "minLength": 8
+            }
+        }]
+    }]
+}, {
+    "step_title": "2. General music daemon options",
+    "items": [{
+        "type": "textfield",
+        "desc": "2.1. User that MPD will run as. MPD should never run as root and you may use this setting to make MPD change its user ID after initialization.",
+        "subitems": [{
+            "key": "wizard_user",
+            "desc": "User",
+            "defaultValue": "mpd",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "mpd",
+                "minLength": 3
+            }
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "2.2. Group that MPD will run as. This is useful if MPD needs to be a member of group such as \"audio\" to have permission to use sound card.",
+        "subitems": [{
+            "key": "wizard_user_group",
+            "desc": "User group",
+            "defaultValue": "audio",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "audio",
+                "minLength": 3
+            }
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "2.3. Address for the daemon to listen on. Careful attention should be paid if this is assigned to anything other then the default, any. This setting can deny access to control of the daemon.",
+        "subitems": [{
+            "key": "wizard_bind_to_address1",
+            "desc": "Network address",
+            "defaultValue": "any",
+            "validator": {
+                "allowBlank": true,
+                "emptyText": "any",
+                "minLength": 3
+            }
+        }, {
+            "key": "wizard_bind_to_address2",
+            "desc": "Socket address",
+            "defaultValue": "/volume1/mpd/mpd.socket",
+            "validator": {
+                "allowBlank": true,
+                "emptyText": "/volume1/mpd/mpd.socket",
+                "minLength": 8
+            }
+        }]
+    }]
+}, {
+    "step_title": "2. General music daemon options (page 2)",
+    "items": [{
+        "type": "textfield",
+        "desc": "2.4. Desired TCP port for the daemon to get assigned to.",
+        "subitems": [{
+            "key": "wizard_port",
+            "desc": "Port",
+            "defaultValue": "6600",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "6600",
+                "minLength": 4,
+                "maxLength": 4
+            }
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_gapless_mp3_playback",
+            "desc": "2.5. Gapless mp3 playback. If you have a problem with your MP3s ending abruptly it is recommended that you set this argument to \"no\" to attempt to fix the problem. If this solves the problem, it is highly recommended to fix the MP3 files with vbrfix (available from &lthttp://www.willwap.co.uk/Programs/vbrfix.php&gt), at which point gapless MP3 playback can be enabled.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_restore_paused",
+            "desc": "2.6. Restore paused after startup. Set MPD into pause mode (instead of starting playback) after startup.",
+            "defaultValue": false
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_save_absolute_paths_in_playlists",
+            "desc": "2.7. Save absolute paths in playlists. Create playlists in a format usable by other music players.",
+            "defaultValue": false
+        }]
+    }]
+}, {
+    "step_title": "2. General music daemon options (page 3)",
+    "items": [{
+        "type": "multiselect",
+        "desc": "2.8. Tag types that will be extracted during the audio file discovery process. artist,album,title,track,name,genre,date,composer,performer,disc",
+        "subitems": [{
+            "key": "wizard_metadata_to_use_artist",
+            "desc": "Artist",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_album",
+            "desc": "Album",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_title",
+            "desc": "Title",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_track",
+            "desc": "Track",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_name",
+            "desc": "Name",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_genre",
+            "desc": "Genre",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_date",
+            "desc": "Date",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_composer",
+            "desc": "Composer",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_performer",
+            "desc": "Performer",
+            "defaultValue": true
+        }, {
+            "key": "wizard_metadata_to_use_disc",
+            "desc": "Disc",
+            "defaultValue": true
+        }]
+    }]
+}, {
+    "step_title": "2. General music daemon options (page 4)",
+    "items": [{
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_auto_update_enable",
+            "desc": "2.9. Auto update. This setting enables automatic update of MPD's database when files in music_directory are changed.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "Limit the depth of the directories being watched, 0 means only watch the music directory itself. Blank means no limit",
+        "subitems": [{
+            "key": "wizard_auto_update_depth",
+            "desc": "Autoupdate depth",
+            "defaultValue": "3",
+            "validator": {
+                "allowBlank": true,
+                "maxLength": 1
+            }
+        }]
+    }]
+}, {
+    "step_title": "3. Symbolic link behavior",
+    "items": [{
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_follow_outside_symlinks_enable",
+            "desc": "Follow outside symlinks. Enable MPD to discover audio files by following symbolic links outside of the configured music_directory.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_follow_inside_symlinks_enable",
+            "desc": "Follow inside symlinks. Enable MPD to discover audio files by following symbolic links inside of the configured music_directory.",
+            "defaultValue": true
+        }]
+    }]
+}, {
+    "step_title": "4. Zeroconf / Avahi Service Discovery",
+    "items": [{
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_zeroconf_enabled",
+            "desc": "Publish service information with Zeroconf / Avahi",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_zeroconf_name",
+            "desc": "Zeroconf / Avahi unique name for this MPD server on the network.",
+            "defaultValue": "Music Player",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "Music Player",
+                "minLength": 3
+            }
+        }]
+    }]
+}, {
+    "step_title": "9. Normalization automatic volume adjustments",
+    "items": [{
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_replaingain_enable",
+            "desc": "9.1. Type of ReplayGain to use. \"auto\" is a special mode that chooses between \"track\" and \"album\" depending on the current state of random playback. If random playback is enabled then \"track\" mode is used. See &lthttp://www.replaygain.org&gt for more details about ReplayGain.",
+            "defaultValue": false
+        }]
+    }, {
+        "type": "singleselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_replaygain_album",
+            "desc": "album",
+            "defaultValue": true
+        }, {
+            "key": "wizard_replaygain_track",
+            "desc": "track",
+            "defaultValue": false
+        }, {
+            "key": "wizard_replaygain_auto",
+            "desc": "auto",
+            "defaultValue": false
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_replaygain_preamp_enable",
+            "desc": "9.2. Pre-amp used for files that have ReplayGain tags.",
+            "defaultValue": false
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_replaygain_preamp",
+            "desc": "ReplayGain preamp",
+            "defaultValue": "0",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "0",
+                "maxLength": 1
+            }
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_replaygain_missing_preamp_enable",
+            "desc": "9.3. Pre-amp used for files that do NOT have ReplayGain tags.",
+            "defaultValue": false
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_replaygain_missing_preamp",
+            "desc": "ReplayGain missing preamp",
+            "defaultValue": "0",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "0",
+                "maxLength": 1
+            }
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_replaygain_limit_enable",
+            "desc": "9.4. ReplayGain limiting. MPD calculates actual amplification based on the ReplayGain tags and replaygain_preamp, replaygain_missing_preamp setting. If enabled then MPD will never amplify audio signal above its original level. If replaygain_limit is disabled such amplification might occur.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_volume_normalization_enable",
+            "desc": "9.5. On-the-fly normalization volume adjustment. This will result in the volume of all playing audio to be adjusted so the output has equal \"loudness\".",
+            "defaultValue": false
+        }]
+    }]
+}, {
+    "step_title": "10. Character Encoding",
+    "items": [{
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_filesystem_charset_enable",
+            "desc": "10.1. If file or directory names do not display correctly for your locale then you may need to modify this setting.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_filesystem_charset",
+            "desc": "Filesystem charset",
+            "defaultValue": "UTF-8",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "UTF-8",
+                "minLength": 5
+            }
+        }]
+    }, {
+        "type": "multiselect",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_id3v1_encoding_enable",
+            "desc": "10.2. This setting controls the encoding that ID3v1 tags should be converted from.",
+            "defaultValue": true
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "",
+        "subitems": [{
+            "key": "wizard_id3v1_encoding",
+            "desc": "ID3v1 encoding",
+            "defaultValue": "UTF-8",
+            "validator": {
+                "allowBlank": false,
+                "emptyText": "UTF-8",
+                "minLength": 5
+            }
+        }]
+    }]
+}]

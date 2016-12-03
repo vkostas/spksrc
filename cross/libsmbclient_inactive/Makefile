@@ -28,12 +28,12 @@ myPatch:
 #	cp $(TC_PATH)/../$(TC_TARGET)/libc/usr/include/stdio.h $(STAGING_INSTALL_PREFIX)/include/
 #	cp $(TC_PATH)/../$(TC_TARGET)/libc/usr/include/sys/utsname.h $(STAGING_INSTALL_PREFIX)/include/sys/
 
-#.PHONY: myConfigure
+.PHONY: myConfigure
 myConfigure:
 	$(RUN) ./buildtools/bin/waf configure $(CONFIGURE_ARGS)
 #	cd $(WORK_DIR)/$(PKG_DIR) && env PATH=$(TC_PATH):$(PATH) ./buildtools/bin/waf configure $(CONFIGURE_ARGS)
 
-#.PHONY: myInstall
+.PHONY: myInstall
 myInstall:
 	$(RUN) make install DESTDIR=$(INSTALL_DIR)
 

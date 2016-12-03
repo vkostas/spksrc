@@ -12,7 +12,7 @@ COMMENT  = Advanced Linux Sound Architecture provides audio and MIDI functionali
 LICENSE  =
 
 GNU_CONFIGURE = 1
-CONFIGURE_ARGS = --disable-alsaconf --disable-bat --disable-xmlto
+CONFIGURE_ARGS = --disable-bat --disable-xmlto# --disable-alsaconf 
 INSTALL_TARGET = myInstall
 PATCH_TARGET = myPatch patch
 

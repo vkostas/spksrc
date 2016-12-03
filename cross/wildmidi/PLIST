@@ -1,0 +1,4 @@
+bin:bin/wildmidi
+lib:lib/libWildMidi.so
+lib:lib/libWildMidi.so.1
+lib:lib/libWildMidi.so.1.1.2

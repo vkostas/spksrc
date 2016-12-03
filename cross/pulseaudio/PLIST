@@ -20,9 +20,6 @@ lib:lib/libpulse-simple.so.0.1.0
 lnk:lib/libpulse.so
 lnk:lib/libpulse.so.0
 lib:lib/libpulse.so.0.19.0
-lib:lib/pkgconfig/libpulse-mainloop-glib.pc
-lib:lib/pkgconfig/libpulse.pc
-lib:lib/pkgconfig/libpulse-simple.pc
 lib:lib/pulse-8.0/modules/libalsa-util.so
 lib:lib/pulse-8.0/modules/libcli.so
 lib:lib/pulse-8.0/modules/liboss-util.so
@@ -106,4 +103,3 @@ lib:lib/pulseaudio/libpulsecommon-8.0.so
 lib:lib/pulseaudio/libpulsecore-8.0.so
 lib:lib/pulseaudio/libpulsedsp.so
 lnk:lib/libpulsecommon-8.0.so
-

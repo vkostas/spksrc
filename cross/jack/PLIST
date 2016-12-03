@@ -38,4 +38,3 @@ lib:lib/libjackserver.so.0.0.28
 lnk:lib/libjack.so
 lnk:lib/libjack.so.0
 lib:lib/libjack.so.0.0.28
-lib:lib/pkgconfig/jack.pc

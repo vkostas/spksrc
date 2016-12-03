@@ -2,4 +2,3 @@ bin:bin/fluidsynth
 lnk:lib/libfluidsynth.so
 lnk:lib/libfluidsynth.so.1
 lib:lib/libfluidsynth.so.1.5.2
-lib:lib/pkgconfig/fluidsynth.pc

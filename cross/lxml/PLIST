@@ -1,2 +1,5 @@
-lib:@PYTHON_SITE_PACKAGES@/lxml/etree*.so
-lib:@PYTHON_SITE_PACKAGES@/lxml/objectify*.so
+bin:bin/xmlcatalog
+bin:bin/xmllint
+lnk:lib/libxml2.so
+lnk:lib/libxml2.so.2
+lib:lib/libxml2.so.2.9.4

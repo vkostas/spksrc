@@ -12,12 +12,6 @@ HOMEPAGE = http://zziplib.sourceforge.net/
 COMMENT  = Extract data from files archived in a single zip file
 LICENSE  = 
 
-CONFIGURE_ARGS  = --prefix=$(INSTALL_PREFIX)
-CONFIGURE_TARGET = myConfigure
+GNU_CONFIGURE = 1
 
 include ../../mk/spksrc.cross-cc.mk
-
-.PHONY: myConfigure
-myConfigure:
-	$(RUN) ./configure $(TC_CONFIGURE_ARGS) $(CONFIGURE_ARGS)
-

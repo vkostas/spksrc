@@ -26,4 +26,4 @@ myPatch:
 
 .PHONY: myInstall
 myInstall:
-	$(RUN) make install DESTDIR=$(STAGING_INSTALL_PREFIX) 
+	$(RUN) make install DESTDIR=$(STAGING_INSTALL_PREFIX) prefix=

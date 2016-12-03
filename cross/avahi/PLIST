@@ -7,12 +7,7 @@ bin:bin/avahi-resolve
 bin:bin/avahi-resolve-address
 bin:bin/avahi-resolve-host-name
 bin:bin/avahi-set-host-name
-rsc:etc/avahi/avahi-autoipd.action
-rsc:etc/avahi/avahi-daemon.conf
-rsc:etc/avahi/avahi-dnsconfd.action
-rsc:etc/avahi/hosts
-rsc:etc/avahi/services/sftp-ssh.service
-rsc:etc/avahi/services/ssh.service
+rsc:etc/avahi
 rsc:etc/dbus-1/system.d/avahi-dbus.conf
 lnk:lib/libavahi-client.so
 lnk:lib/libavahi-client.so.3
@@ -26,9 +21,6 @@ lib:lib/libavahi-core.so.7.0.2
 lnk:lib/libavahi-glib.so
 lnk:lib/libavahi-glib.so.1
 lib:lib/libavahi-glib.so.1.0.2
-lib:lib/pkgconfig/avahi-client.pc
-lib:lib/pkgconfig/avahi-core.pc
-lib:lib/pkgconfig/avahi-glib.pc
 bin:sbin/avahi-autoipd
 bin:sbin/avahi-daemon
 bin:sbin/avahi-dnsconfd

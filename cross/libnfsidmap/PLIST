@@ -1,8 +1,5 @@
-rsc:include/nfsidmap.h
 lib:lib/libnfsidmap/nsswitch.so
 lnk:lib/libnfsidmap.so
 lnk:lib/libnfsidmap.so.0
 lib:lib/libnfsidmap.so.0.3.0
 lib:lib/libnfsidmap/static.so
-lib:lib/pkgconfig/libnfsidmap.pc
-

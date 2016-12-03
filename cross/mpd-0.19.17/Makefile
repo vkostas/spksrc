@@ -4,7 +4,28 @@ PKG_VERS_SHORT = 0.19
 PKG_VERS = $(PKG_VERS_SHORT).17
 PKG_EXT = tar.xz
 
+# GCC is too old for this mpd version
 UNSUPPORTED_ARCHS += $(PPC_ARCHES)
+#Arch	gcc	CPU		max mpd version
+#ARM	493	armada38x	0.19.19
+#ARM	483	monaco		0.19.19
+#x64	473	avoton		0.19.19
+#x64	473	braswell	0.19.19
+#x64	473	bromolow	0.19.19
+#x64	473	cedarview	0.19.19
+#x64	473	x64		0.19.19
+#x64	473	x86		0.19.19
+
+#ARM	464	88f6281		0.19.17
+#ARM	464	alpine		0.19.17
+#ARM	464	armada370	0.19.17
+#ARM	464	armada375	0.19.17
+#ARM	464	armadaxp	0.19.17
+#ARM	464	comcerto2k	0.19.17
+#x86	463	evansport	0.19.17
+
+#PPC	437	ppc853x		0.17.6
+#PPC	437	qoriq		0.17.6
 
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 PKG_DIST_NAME = $(PKG_DIR).$(PKG_EXT)

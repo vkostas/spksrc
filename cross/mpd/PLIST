@@ -1,1 +1,7 @@
 bin:bin/mpd
+shr:var/mpd.conf
+shr:share/doc/mpd.conf.example
+shr:share/doc/mpd.news
+lnk:lib/libssp.so
+lnk:lib/libssp.so.0
+lib:lib/libssp.so.0.0.0
